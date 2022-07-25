@@ -6,7 +6,7 @@
  * @package           chill
  *
  * @wordpress-plugin
- * Plugin Name:       chill
+ * Plugin Name:       Chill
  * Plugin URI:        http://www.cclsny.org/snowpage
  * Description:       Companion plugin for SnowPage.
  * Version:           0.0.1
