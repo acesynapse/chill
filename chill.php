@@ -3,7 +3,7 @@
 /**
  * @link              http://www.cclsny.org/snowpage
  * @since             0.0.1
- * @package           Chill
+ * @package           chill
  *
  * @wordpress-plugin
  * Plugin Name:       Chill
@@ -14,7 +14,7 @@
  * Author URI:        http://protemstudios.com/
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:       chill
+ * Text Domain:       snowpage
  */
 
 defined('ABSPATH') || die(http_response_code(418));
