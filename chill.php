@@ -3,7 +3,7 @@
 /**
  * @link              http://www.cclsny.org/snowpage
  * @since             0.0.1
- * @package           chill
+ * @package           Chill
  *
  * @wordpress-plugin
  * Plugin Name:       Chill
