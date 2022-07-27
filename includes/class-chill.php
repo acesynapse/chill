@@ -58,15 +58,11 @@ class Chill {
 	public function __construct() {
 		if ( defined( 'CHILL_VERSION' ) ) {
 			$this->version = CHILL_VERSION;
-		} else {
-			$this->version = '1.0.0';
 		}
 		$this->plugin_name = 'chill';
 
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
 
 	}
 
@@ -104,12 +100,6 @@ class Chill {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-chill-admin.php';
 
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-chill-public.php';
-
 		$this->loader = new Chill_Loader();
 
 	}
@@ -126,6 +116,8 @@ class Chill {
 		$plugin_admin = new Chill_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'activated_plugin', $plugin_admin, 'chill_database_complete' );
+		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_type_databases' );
+		$this->loader->add_action( 'init', $plugin_admin, 'databases_nonhierarchical_taxonomy' );
 
 	}
 

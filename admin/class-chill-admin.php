@@ -45,6 +45,100 @@ class Chill_Admin {
 	}
 
 	/**
+	 * Initialize database CPT.
+	 *
+	 * @since    1.0.0
+	 */
+	 public function register_custom_post_type_databases() {
+
+	// Set UI labels
+			$labels = array(
+					'name'                => _x( 'Databases', 'Post Type General Name'),
+					'singular_name'       => _x( 'Database', 'Post Type Singular Name'),
+					'menu_name'           => __( 'Databases'),
+					'parent_item_colon'   => __( 'Parent Database'),
+					'all_items'           => __( 'All Databases'),
+					'view_item'           => __( 'View Databases'),
+					'add_new_item'        => __( 'Add New Database'),
+					'add_new'             => __( 'Add New'),
+					'edit_item'           => __( 'Edit Database'),
+					'update_item'         => __( 'Update Database'),
+					'search_items'        => __( 'Search Databases'),
+					'not_found'           => __( 'Not Found'),
+					'not_found_in_trash'  => __( 'Not found in Trash'),
+			);
+
+	// Set other options for Custom Post Type - Databases
+
+			$args = array(
+					'label'               => __( 'databases'),
+					'description'         => __( 'Databases for Library Patron Use'),
+					'labels'              => $labels,
+					// Features this CPT supports in Post Editor
+					'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+					'taxonomies'          => array( 'systemwide' ),
+					'hierarchical'        => false,
+					'public'              => true,
+					'show_ui'             => true,
+					'show_in_menu'        => true,
+					'show_in_nav_menus'   => true,
+					'show_in_admin_bar'   => true,
+					'menu_position'       => 5,
+					'can_export'          => true,
+					'has_archive'         => false,
+					'exclude_from_search' => false,
+					'publicly_queryable'  => true,
+					'capability_type'     => 'post',
+					'show_in_rest'        => true,
+
+			);
+
+			// Registering
+			register_post_type( 'databases', $args );
+
+	}
+
+	/**
+	 * Initialize database taxonomy.
+	 *
+	 * @since    1.0.0
+	 */
+	function databases_nonhierarchical_taxonomy() {
+
+	// Labels part for the GUI
+
+		$labels = array(
+			'name' => _x( 'System Wide', 'taxonomy general name' ),
+			'singular_name' => _x( 'System Wide', 'taxonomy singular name' ),
+			'search_items' =>  __( 'Search System Wide' ),
+			'all_items' => __( 'All System Wide' ),
+			'parent_item' => null,
+			'parent_item_colon' => null,
+			'edit_item' => __( 'Edit System Wide' ),
+			'update_item' => __( 'Update System Wide' ),
+			'add_new_item' => __( 'Add New System Wide' ),
+			'new_item_name' => __( 'New System Wide Name' ),
+			'separate_items_with_commas' => __( 'Separate System Wide with commas' ),
+			'add_or_remove_items' => __( 'Add or remove System Wide' ),
+			'choose_from_most_used' => __( 'Choose from the most used System Wide' ),
+			'menu_name' => __( 'System Wide' ),
+		);
+
+	// Now register the non-hierarchical taxonomy like tag
+
+		register_taxonomy('systemwide','databases',array(
+			'hierarchical' => false,
+			'labels' => $labels,
+			'show_ui' => true,
+			'show_in_rest' => true,
+			'show_admin_column' => true,
+			'update_count_callback' => '_update_post_term_count',
+			'query_var' => true,
+			'rewrite' => array( 'slug' => 'systemwide' ),
+		));
+	}
+
+	/**
 	 * Initialize or set database version.
 	 *
 	 * @since    1.0.0
@@ -68,7 +162,7 @@ class Chill_Admin {
 	 * @return   bool
 	 */
 	private function chill_database_compare() {
-	  $currentversion = chill_database_version();
+	  $currentversion =  $this->chill_database_version();
 		$results = ($currentversion == $version)? 'false' : 'true';
 		return $results;
 	}
@@ -79,6 +173,7 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_remove_open_hours() {
+		global $wpdb;
 		$opidobject = $wpdb->get_results("SELECT id FROM {$wpdb->prefix}posts WHERE post_type = 'op-set'");
 	  $opidarray = json_decode(json_encode($opidobject), true);
 	  $opid = $opidarray[0]['id'];
@@ -97,6 +192,7 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_remove_system_databases() {
+		global $wpdb;
 		$taxidobject = $wpdb->get_results("SELECT term_id FROM {$wpdb->prefix}term_taxonomy WHERE taxonomy = 'systemwide'");
 	  $taxidarray = json_decode(json_encode($taxidobject), true);
 	  $taxid = $taxidarray[0]['term_id'];
@@ -118,6 +214,7 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_remove_database_images() {
+		global $wpdb;
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$dbpdobject = $wpdb->get_results("SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_key = '_sp_database_image'");
 	  $dbpidarray = json_decode(json_encode($dbpdobject), true);
@@ -134,6 +231,7 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_insert_open_hours() {
+		global $wpdb;
 		$urlw = $_SERVER['HTTP_HOST'];
 		$urlw = preg_replace("/www\./", "", $urlw);
 		switch ($urlw) {
@@ -363,6 +461,10 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_insert_novelny() {
+		global $wpdb;
+		$taxidobject = $wpdb->get_results("SELECT term_id FROM {$wpdb->prefix}term_taxonomy WHERE taxonomy = 'systemwide'");
+	  $taxidarray = json_decode(json_encode($taxidobject), true);
+	  $taxid = $taxidarray[0]['term_id'];
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$wpdb->insert( $wpdb->prefix.'posts', array(
 	    'post_author' => '2257',
@@ -416,6 +518,10 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_insert_libby() {
+		global $wpdb;
+		$taxidobject = $wpdb->get_results("SELECT term_id FROM {$wpdb->prefix}term_taxonomy WHERE taxonomy = 'systemwide'");
+	  $taxidarray = json_decode(json_encode($taxidobject), true);
+	  $taxid = $taxidarray[0]['term_id'];
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$wpdb->insert( $wpdb->prefix.'posts', array(
 		  'post_author' => '2257',
@@ -469,6 +575,10 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_insert_ancestry() {
+		global $wpdb;
+		$taxidobject = $wpdb->get_results("SELECT term_id FROM {$wpdb->prefix}term_taxonomy WHERE taxonomy = 'systemwide'");
+	  $taxidarray = json_decode(json_encode($taxidobject), true);
+	  $taxid = $taxidarray[0]['term_id'];
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$wpdb->insert( $wpdb->prefix.'posts', array(
 		  'post_author' => '2257',
@@ -522,6 +632,10 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_insert_nyhp() {
+		global $wpdb;
+		$taxidobject = $wpdb->get_results("SELECT term_id FROM {$wpdb->prefix}term_taxonomy WHERE taxonomy = 'systemwide'");
+	  $taxidarray = json_decode(json_encode($taxidobject), true);
+	  $taxid = $taxidarray[0]['term_id'];
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$wpdb->insert( $wpdb->prefix.'posts', array(
 	    'post_author' => '2257',
@@ -575,6 +689,10 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_insert_heritage() {
+		global $wpdb;
+		$taxidobject = $wpdb->get_results("SELECT term_id FROM {$wpdb->prefix}term_taxonomy WHERE taxonomy = 'systemwide'");
+	  $taxidarray = json_decode(json_encode($taxidobject), true);
+	  $taxid = $taxidarray[0]['term_id'];
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		$wpdb->insert( $wpdb->prefix.'posts', array(
       'post_author' => '2257',
@@ -628,6 +746,7 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	private function chill_database_update() {
+		global $wpdb;
 		$wpdb->update( $wpdb->prefix.'options', array('option_value' => $version) , array('option_name' => 'sp_db_version') );
 	}
 
@@ -637,20 +756,20 @@ class Chill_Admin {
 	 * @since    1.0.0
 	 */
 	public function chill_database_complete() {
-		 if (chill_database_compare()) {
-			 if (chill_database_version() != '0.0.0') {
-				 chill_remove_open_hours();
-				 chill_remove_system_databases();
-				 chill_remove_database_images();
+		 if ($this->chill_database_compare()) {
+			 if ($this->chill_database_version() != '0.0.0') {
+				 $this->chill_remove_open_hours();
+				 $this->chill_remove_system_databases();
+				 $this->chill_remove_database_images();
 			 }
 
-			 chill_insert_open_hours();
-			 chill_insert_novelny();
-			 chill_insert_libby();
-			 chill_insert_ancestry();
-			 chill_insert_nyhp();
-			 chill_insert_heritage();
-			 chill_database_update();
+			 $this->chill_insert_open_hours();
+			 $this->chill_insert_novelny();
+			 $this->chill_insert_libby();
+			 $this->chill_insert_ancestry();
+			 $this->chill_insert_nyhp();
+			 $this->chill_insert_heritage();
+			 $this->chill_database_update();
 		 }
 	}
 
