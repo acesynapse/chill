@@ -1,6 +1,6 @@
 <?php
 /**
-* Plugin Name: Chill
+* Plugin Name: SnowStack Activation
 * Description: Selection of required and recommended plugins for SnowPage.
 * Version: 1.0.0
 * Author: Emric Taylor, CCLS

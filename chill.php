@@ -1,117 +1,66 @@
 <?php
+// If this file is called directly, the teapot refuses to brew coffee.
+defined('ABSPATH' && 'WPINC') || die(http_response_code(418));
 
 /**
- * @link              http://www.cclsny.org/snowpage
- * @since             0.0.1
- * @package           chill
+ *
+ * @since             1.0.0
+ * @package           Chill
  *
  * @wordpress-plugin
  * Plugin Name:       Chill
- * Plugin URI:        http://www.cclsny.org/snowpage
- * Description:       Companion plugin for SnowPage.
- * Version:           0.0.1
+ * Plugin URI:        https://www.cclsny.org/snowpage
+ * Description:       Chill is the side-along plugin for SnowPage.
+ * Version:           1.0.0
  * Author:            Emric Taylor, CCLS (AceSynapse)
- * Author URI:        http://protemstudios.com/
+ * Author URI:        https://protemstudios.com/
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:       snowpage
+ * Text Domain:       chill
+ * Domain Path:       /languages
  */
 
-defined('ABSPATH') || die(http_response_code(418));
+/**
+ * Current plugin version.
+ */
+define( 'CHILL_VERSION', '0.0.5' );
 
-define( 'CHILL_VERSION', '0.0.1' );
-
-require plugin_dir_path( __FILE__ ) . 'includes/snowpage-activation.php';
-require plugin_dir_path( __FILE__ ) . 'includes/databases.php';
-
-/*
-* Databases Custom Post Type
-*/
-
-function custom_post_databases() {
-
-// Set UI labels
-    $labels = array(
-        'name'                => _x( 'Databases', 'Post Type General Name'),
-        'singular_name'       => _x( 'Database', 'Post Type Singular Name'),
-        'menu_name'           => __( 'Databases'),
-        'parent_item_colon'   => __( 'Parent Database'),
-        'all_items'           => __( 'All Databases'),
-        'view_item'           => __( 'View Databases'),
-        'add_new_item'        => __( 'Add New Database'),
-        'add_new'             => __( 'Add New'),
-        'edit_item'           => __( 'Edit Database'),
-        'update_item'         => __( 'Update Database'),
-        'search_items'        => __( 'Search Databases'),
-        'not_found'           => __( 'Not Found'),
-        'not_found_in_trash'  => __( 'Not found in Trash'),
-    );
-
-// Set other options for Custom Post Type
-
-    $args = array(
-        'label'               => __( 'databases'),
-        'description'         => __( 'Databases for Library Patron Use'),
-        'labels'              => $labels,
-        // Features this CPT supports in Post Editor
-        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
-        'taxonomies'          => array( 'systemwide' ),
-        'hierarchical'        => false,
-        'public'              => true,
-        'show_ui'             => true,
-        'show_in_menu'        => true,
-        'show_in_nav_menus'   => true,
-        'show_in_admin_bar'   => true,
-        'menu_position'       => 5,
-        'can_export'          => true,
-        'has_archive'         => false,
-        'exclude_from_search' => false,
-        'publicly_queryable'  => true,
-        'capability_type'     => 'post',
-        'show_in_rest'        => true,
-
-    );
-
-    // Registering
-    register_post_type( 'databases', $args );
-
+/**
+ * The code that runs during plugin activation.
+ */
+function activate_chill() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-chill-activator.php';
+	Chill_Activator::activate();
+	flush_rewrite_rules();
 }
 
-add_action( 'init', 'custom_post_databases', 0 );
-
-add_action( 'init', 'custom_nonhierarchical_taxonomy', 0 );
-
-function custom_nonhierarchical_taxonomy() {
-
-// Labels part for the GUI
-
-  $labels = array(
-    'name' => _x( 'System Wide', 'taxonomy general name' ),
-    'singular_name' => _x( 'System Wide', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search System Wide' ),
-    'all_items' => __( 'All System Wide' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit System Wide' ),
-    'update_item' => __( 'Update System Wide' ),
-    'add_new_item' => __( 'Add New System Wide' ),
-    'new_item_name' => __( 'New System Wide Name' ),
-    'separate_items_with_commas' => __( 'Separate System Wide with commas' ),
-    'add_or_remove_items' => __( 'Add or remove System Wide' ),
-    'choose_from_most_used' => __( 'Choose from the most used System Wide' ),
-    'menu_name' => __( 'System Wide' ),
-  );
-
-// Now register the non-hierarchical taxonomy like tag
-
-  register_taxonomy('systemwide','databases',array(
-    'hierarchical' => false,
-    'labels' => $labels,
-    'show_ui' => true,
-    'show_in_rest' => true,
-    'show_admin_column' => true,
-    'update_count_callback' => '_update_post_term_count',
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'systemwide' ),
-  ));
+/**
+ * The code that runs during plugin deactivation.
+ */
+function deactivate_chill() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-chill-deactivator.php';
+	Chill_Deactivator::deactivate();
+	flush_rewrite_rules();
 }
+
+register_activation_hook( __FILE__, 'activate_chill' );
+register_deactivation_hook( __FILE__, 'deactivate_chill' );
+
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/class-chill.php';
+
+/**
+ * Begins execution of the plugin.
+ *
+ * @since    1.0.0
+ */
+function run_chill() {
+
+	$plugin = new Chill();
+	$plugin->run();
+
+}
+run_chill();
