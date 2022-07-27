@@ -1,4 +1,7 @@
 <?php
+// If this file is called directly, the teapot refuses to brew coffee.
+defined('ABSPATH') || die(http_response_code(418));
+
 /**
 * Plugin Name: SnowStack Activation
 * Description: Selection of required and recommended plugins for SnowPage.

@@ -1,4 +1,7 @@
 <?php
+// If this file is called directly, the teapot refuses to brew coffee.
+defined('ABSPATH') || die(http_response_code(418));
+
 /**
  * Plugin installation and activation for WordPress themes.
  *
