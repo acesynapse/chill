@@ -331,8 +331,8 @@ class Chill_Admin {
 		    $libir = 'a:0:{}';
 		    break;
 		  case 'lakewoodlibrary.org':
-		    $libhours = '';
-		    $libholi = '';
+		    $libhours = 'a:6:{i:0;a:3:{s:7:"weekday";i:1;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:1;a:3:{s:7:"weekday";i:2;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:2;a:3:{s:7:"weekday";i:3;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:3;a:3:{s:7:"weekday";i:4;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:4;a:3:{s:7:"weekday";i:5;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:5;a:3:{s:7:"weekday";i:6;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"14:00";}}';
+		    $libholi = 'a:4:{i:0;a:3:{s:4:"name";s:21:"Closed - Veterans Day";s:9:"dateStart";s:10:"2022-11-11";s:7:"dateEnd";s:10:"2022-11-11";}i:1;a:3:{s:4:"name";s:21:"Closed - Thanksgiving";s:9:"dateStart";s:10:"2022-11-24";s:7:"dateEnd";s:10:"2022-11-26";}i:2;a:3:{s:4:"name";s:18:"Closed - Christmas";s:9:"dateStart";s:10:"2022-12-24";s:7:"dateEnd";s:10:"2022-12-26";}i:3;a:3:{s:4:"name";s:19:"Closed - New Years";s:9:"dateStart";s:10:"2022-12-31";s:7:"dateEnd";s:10:"2023-01-02";}}';
 		    $libir = 'a:0:{}';
 		    break;
 		  case 'littlevalleylibrary.org':
