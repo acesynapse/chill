@@ -332,8 +332,8 @@ class Chill_Admin {
 		    break;
 		  case 'lakewoodlibrary.org':
 		    $libhours = 'a:6:{i:0;a:3:{s:7:"weekday";i:1;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:1;a:3:{s:7:"weekday";i:2;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:2;a:3:{s:7:"weekday";i:3;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:3;a:3:{s:7:"weekday";i:4;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:4;a:3:{s:7:"weekday";i:5;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"18:00";}i:5;a:3:{s:7:"weekday";i:6;s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"14:00";}}';
-		    $libholi = 'a:4:{i:0;a:3:{s:4:"name";s:21:"Closed - Veterans Day";s:9:"dateStart";s:10:"2022-11-11";s:7:"dateEnd";s:10:"2022-11-11";}i:1;a:3:{s:4:"name";s:21:"Closed - Thanksgiving";s:9:"dateStart";s:10:"2022-11-24";s:7:"dateEnd";s:10:"2022-11-26";}i:2;a:3:{s:4:"name";s:18:"Closed - Christmas";s:9:"dateStart";s:10:"2022-12-24";s:7:"dateEnd";s:10:"2022-12-26";}i:3;a:3:{s:4:"name";s:19:"Closed - New Years";s:9:"dateStart";s:10:"2022-12-31";s:7:"dateEnd";s:10:"2023-01-02";}}';
-		    $libir = 'a:0:{}';
+		    $libholi = 'a:4:{i:0;a:3:{s:4:"name";s:21:"Closed - Veterans Day";s:9:"dateStart";s:10:"2022-11-11";s:7:"dateEnd";s:10:"2022-11-11";}i:1;a:3:{s:4:"name";s:21:"Closed - Thanksgiving";s:9:"dateStart";s:10:"2022-11-24";s:7:"dateEnd";s:10:"2022-11-26";}i:2;a:3:{s:4:"name";s:18:"Closed - Christmas";s:9:"dateStart";s:10:"2022-12-24";s:7:"dateEnd";s:10:"2022-12-26";}i:3;a:3:{s:4:"name";s:19:"Closed - New Years";s:9:"dateStart";s:10:"2022-12-31";s:7:"dateEnd";s:10:"2023-01-01";}}';
+		    $libir = 'a:1:{i:0;a:4:{s:4:"name";s:9:"Fall Fest";s:4:"date";s:10:"2022-10-08";s:9:"timeStart";s:5:"10:00";s:7:"timeEnd";s:5:"14:00";}}';
 		    break;
 		  case 'littlevalleylibrary.org':
 		    $libhours = '';
@@ -484,7 +484,7 @@ class Chill_Admin {
 	  $dbposts = $dbpostsarray[0];
 	  foreach ($dbposts as $x => $val) {
 		  $imgid = $val + 1;
-	      $wpdb->insert( $wpdb->prefix.'postmeta', array( 'post_id' => $val, 'meta_key' => '_links_to', 'meta_value' => '#' ) );
+	      $wpdb->insert( $wpdb->prefix.'postmeta', array( 'post_id' => $val, 'meta_key' => '_links_to', 'meta_value' => 'http://www.novelnewyork.org/' ) );
 	      $wpdb->insert( $wpdb->prefix.'postmeta', array( 'post_id' => $val, 'meta_key' => '_links_to_target', 'meta_value' => '_blank' ) );
 	      $wpdb->insert( $wpdb->prefix.'postmeta', array( 'post_id' => $val, 'meta_key' => '_thumbnail_id', 'meta_value' => $imgid ) );
 		    $wpdb->insert( $wpdb->prefix.'postmeta', array( 'post_id' => $imgid, 'meta_key' => '_sp_database_image', 'meta_value' => 'true' ) );
