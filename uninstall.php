@@ -14,3 +14,5 @@ defined('ABSPATH') || die(http_response_code(418));
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+delete_option('sp_db_version');

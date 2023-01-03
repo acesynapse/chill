@@ -56,9 +56,7 @@ class Chill {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'CHILL_VERSION' ) ) {
-			$this->version = CHILL_VERSION;
-		}
+		$this->version = CHILL_VERSION;
 		$this->plugin_name = 'chill';
 
 		$this->load_dependencies();
@@ -115,9 +113,8 @@ class Chill {
 
 		$plugin_admin = new Chill_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'activated_plugin', $plugin_admin, 'chill_database_complete' );
+		$this->loader->add_action( 'upgrader_process_complete', $plugin_admin, 'chill_database_complete' );
 		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_type_databases' );
-		$this->loader->add_action( 'init', $plugin_admin, 'databases_nonhierarchical_taxonomy' );
 
 	}
 
