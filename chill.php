@@ -23,7 +23,7 @@ defined('ABSPATH') || die(http_response_code(418));
 /**
  * Current plugin version.
  */
-define ( 'CHILL_VERSION', '2.0.0' );
+defined( 'CHILL_VERSION' ) || define ( 'CHILL_VERSION', '2.0.0' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -42,4 +42,5 @@ function run_chill() {
 	$plugin->run();
 
 }
+
 run_chill();

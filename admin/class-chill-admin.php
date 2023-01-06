@@ -45,7 +45,7 @@ class Chill_Admin
     }
 
     /**
-     * Initialize database CPT.
+     * Initialize database Custom Post Type
      *
      * @since    1.0.0
      */
