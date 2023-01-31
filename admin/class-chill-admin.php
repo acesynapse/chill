@@ -38,8 +38,7 @@ class Chill_Admin
      * @param   string    $plugin_name       The name of this plugin.
      * @param   string    $version    The version of this plugin.
      */
-    public function __construct($plugin_name, $version)
-    {
+    public function __construct($plugin_name, $version) {
         $this->plugin_name;
         $this->version;
     }
@@ -49,8 +48,7 @@ class Chill_Admin
      *
      * @since    1.0.0
      */
-     public function register_custom_post_type_databases()
-     {
+     public function register_custom_post_type_databases() {
          // Set UI labels
          $labels = array(
                  'name'                => _x('Databases', 'Post Type General Name'),
@@ -95,6 +93,9 @@ class Chill_Admin
 
          // Registering
          register_post_type('databases', $args);
+
+         // Flush rewrite_rules
+         flush_rewrite_rules();
      }
 
     /**
@@ -103,8 +104,7 @@ class Chill_Admin
       * @since    1.0.0
       * @return   string
       */
-    private function chill_database_version()
-    {
+    private function chill_database_version() {
         $currentversion = get_option('sp_db_version');
         if (! $currentversion) {
             add_option('sp_db_version', '0.0.0');
@@ -122,8 +122,7 @@ class Chill_Admin
      * @since    1.0.0
      * @return   bool
      */
-    private function chill_database_compare()
-    {
+    private function chill_database_compare() {
         $currentversion =  $this->chill_database_version();
 
         $results = version_compare($currentversion, CHILL_VERSION, '<');
@@ -136,8 +135,7 @@ class Chill_Admin
      *
      * @since    1.0.0
      */
-    private function chill_remove_open_hours()
-    {
+    private function chill_remove_open_hours() {
         $ohids = get_posts([ 'fields' => 'ids', 'post_type' => 'op-set', 'name' => 'hours' ]);
 
         $ohids ? $ohid = $ohids[0] : $ohid = false;
@@ -150,8 +148,7 @@ class Chill_Admin
      *
      * @since    1.0.0
      */
-    private function chill_remove_system_databases()
-    {
+    private function chill_remove_system_databases() {
         $databases = ['novelny', 'libby', 'ancestry-lb', 'nyhp', 'heritage'];
 
         foreach ($databases as $database) {
@@ -171,8 +168,7 @@ class Chill_Admin
      *
      * @since    2.0.0
      */
-    private function download_external_image($image_url)
-    {
+    private function download_external_image($image_url) {
         require_once(ABSPATH . 'wp-admin/includes/file.php');
 
         $temp_file = download_url($image_url);
@@ -228,8 +224,7 @@ class Chill_Admin
      * array format ['image', 'title', 'name', 'link']
      * @since    2.0.0
      */
-    private function chill_insert_databases()
-    {
+    private function chill_insert_databases() {
         $databases = [
             ['https://www.cclsny.org/wp-content/uploads/2022/06/novel_master.png', 'NovelNY', 'novelny', 'http://www.novelnewyork.org/'],
             ['https://www.cclsny.org/wp-content/uploads/2022/06/libby_master.png', 'Meet Libby.', 'libby', 'https://meet.libbyapp.com/?utm_medium=lightning_banner&utm_source=lightning&utm_campaign=libby'],
@@ -264,8 +259,7 @@ class Chill_Admin
      *
      * @since    1.0.0
      */
-    private function chill_database_update()
-    {
+    private function chill_database_update() {
         update_option('sp_db_version', CHILL_VERSION);
     }
 
@@ -274,8 +268,7 @@ class Chill_Admin
      *
      * @since    1.0.0
      */
-    public function chill_database_complete()
-    {
+    public function chill_database_complete() {
         if ($this->chill_database_compare()) {
             $this->chill_remove_open_hours();
             $this->chill_remove_system_databases();
@@ -290,8 +283,7 @@ class Chill_Admin
      *
      * @since    1.0.0
      */
-    private function chill_insert_open_hours()
-    {
+    private function chill_insert_open_hours() {
         $urlw = $_SERVER['HTTP_HOST'];
         $urlw = preg_replace("/www\./", "", $urlw);
         switch ($urlw) {
