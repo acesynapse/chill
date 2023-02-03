@@ -32,6 +32,11 @@ defined( 'CHILL_VERSION' ) || define ( 'CHILL_VERSION', '2.0.0' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-chill.php';
 
 /**
+ * Calling the elementor widgets expansion.
+ */
+require plugin_dir_path( __FILE__ ) . 'elementor-ext.php';
+
+/**
  * Begins execution of the plugin.
  *
  * @since    1.0.0
