@@ -11,7 +11,7 @@ defined('ABSPATH') || die(http_response_code(418));
  * Plugin Name:       Chill
  * Plugin URI:        https://www.cclsny.org/snowpage
  * Description:       Chill is the side-along plugin for SnowPage.
- * Version:           2.0.0
+ * Version:           2.1.0
  * Author:            Emric Taylor, CCLS (AceSynapse)
  * Author URI:        https://protemstudios.com/
  * License:           GPL-3.0+
@@ -23,7 +23,12 @@ defined('ABSPATH') || die(http_response_code(418));
 /**
  * Current plugin version.
  */
-defined( 'CHILL_VERSION' ) || define ( 'CHILL_VERSION', '2.0.0' );
+defined( 'CHILL_VERSION' ) || define ( 'CHILL_VERSION', '2.1.0' );
+
+/**
+ * Set plugin path
+ */
+defined( 'CHILL_PATH' ) || define ( 'CHILL_PATH', plugin_dir_path( __FILE__ ) );
 
 /**
  * The core plugin class that is used to define internationalization,

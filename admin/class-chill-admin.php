@@ -226,11 +226,11 @@ class Chill_Admin
      */
     private function chill_insert_databases() {
         $databases = [
-            ['https://www.cclsny.org/wp-content/uploads/2022/06/novel_master.png', 'NovelNY', 'novelny', 'http://www.novelnewyork.org/'],
-            ['https://www.cclsny.org/wp-content/uploads/2022/06/libby_master.png', 'Meet Libby.', 'libby', 'https://meet.libbyapp.com/?utm_medium=lightning_banner&utm_source=lightning&utm_campaign=libby'],
-            ['https://www.cclsny.org/wp-content/uploads/2022/06/ancestry_master.jpg', 'Ancestry Library Edition', 'ancestry-lb', 'https://www.ancestrylibrary.com/'],
-            ['https://www.cclsny.org/wp-content/uploads/2022/06/nyhp_master.png', 'New York Historic Newspapers', 'nyhp', 'http://nyshistoricnewspapers.org/'],
-            ['https://www.cclsny.org/wp-content/uploads/2022/06/heritage_master.jpg', 'New York Heritage', 'heritage', 'https://nyheritage.org/']
+            [ CHILL_PATH . 'includes/images/novel_master.png', 'NovelNY', 'novelny', 'http://www.novelnewyork.org/'],
+            [ CHILL_PATH . 'includes/images/libby_master.png', 'Meet Libby.', 'libby', 'https://meet.libbyapp.com/?utm_medium=lightning_banner&utm_source=lightning&utm_campaign=libby'],
+            [ CHILL_PATH . 'includes/images/ancestry_master.jpg', 'Ancestry Library Edition', 'ancestry-lb', 'https://www.ancestrylibrary.com/'],
+            [ CHILL_PATH . 'includes/images/nyhp_master.png', 'New York Historic Newspapers', 'nyhp', 'http://nyshistoricnewspapers.org/'],
+            [ CHILL_PATH . 'includes/images/heritage_master.jpg', 'New York Heritage', 'heritage', 'https://nyheritage.org/']
         ];
 
         foreach ($databases as list($image, $title, $name, $link)) {

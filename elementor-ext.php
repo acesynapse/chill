@@ -26,9 +26,12 @@ function register_list_widget( $widgets_manager ) {
 
 	require_once( __DIR__ . '/widgets/term-widget.php' );
 	require_once( __DIR__ . '/widgets/vote-widget.php' );
+	require_once( __DIR__ . '/widgets/podcast-widget.php' );
 
 	$widgets_manager->register( new \Elementor_Term_Widget() );
 	$widgets_manager->register( new \Elementor_Vote_Widget() );
+	$widgets_manager->register( new \Elementor_Podcast_Widget() );
+
 
 }
 add_action( 'elementor/widgets/register', 'register_list_widget' );

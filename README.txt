@@ -9,6 +9,9 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 == Changelog ==
 
+= 2.1.0 =
+* Added database images to plugin.
+
 = 2.0.0 =
 * Rewrite of chill-admin.
 
