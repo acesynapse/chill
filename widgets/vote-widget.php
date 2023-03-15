@@ -32,7 +32,7 @@ class Elementor_Vote_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Vote Calculator', 'elementor-term-widget' );
+		return esc_html__( 'Vote Calculator', 'elementor-vote-widget' );
 	}
 
 	/**

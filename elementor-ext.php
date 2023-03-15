@@ -30,7 +30,7 @@ function register_list_widget( $widgets_manager ) {
 
 	$widgets_manager->register( new \Elementor_Term_Widget() );
 	$widgets_manager->register( new \Elementor_Vote_Widget() );
-	$widgets_manager->register( new \Elementor_Podcast_Widget() );
+	$widgets_manager->register( new \Elementor_Votebemflu_Widget() );
 
 
 }
